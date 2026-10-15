@@ -34,13 +34,7 @@ nav {
   text-align: right;
   font-size: 2em;
   background-color: #403a1d;
-  background: linear-gradient(
-    45deg,
-    rgba(240, 141, 70, 1) 0%,
-    rgba(161, 64, 89, 1) 35%,
-    rgba(35, 66, 107, 1) 65%,
-    rgba(35, 48, 68, 1) 100%
-  );
+  background: #AA30CC;
 }
 
 /* Language selector style */

@@ -1,26 +1,111 @@
 ---
+title: Decomp
 layout: main.html
 lang: en
 ---
-<h2 style="text-align: center;">The biggest rhythm game mod of all time!</h2>
-<p style="text-align: center; color: #ffffff;">With custom track themes, a higher song limit, custom characters, an FC indicator, a lyric display, break countdowns, an expanded HUD, up to 60FPS venues, pad play, fully customizable gameplay, many song upgrades, and so much more...
-<p style="text-align: center; color: #ffffff;"><big><b><i>Rock Band 3 Deluxe</i> makes the experience as ultimate as possible!</b></big></p>
-<h1 style="text-align: center; color: #ffffff;"> 📥 <a href="/downloads/">Download Now! &gt;</a></h1>
-<p style="text-align: center; color: #ffffff;">*FYI, you can play it on PC (RPCS3), PS3, and Xbox 360!</p>
-<hr>
-<video width="700px" height="393.75px" src="/images/rb3dx.webm" type="video/mp4" muted class="vid" loop alt="Rock Band 3 Deluxe"></video>
+<h2 style="text-align: center">Dance Central 3 Decompilation</h2>
+<div id="chartContainer" style="display: flex; justify-content: center"></div>
+
+<link href="https://cdn.jsdelivr.net/npm/uplot@1.6.26/dist/uPlot.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/uplot@1.6.26/dist/uPlot.iife.min.js"></script>
 <script>
-    let clip = document.querySelector(".vid");
-    clip.play();
-    clip.addEventListener('click', function() {
-        clip.play();
-    });
+    const height = 400;
+    const stroke = '#a9a9b3';
+    const grid = {
+        stroke: 'rgba(128, 128, 128, 0.1)',
+    };
+
+    function percentValue(self, rawValue) {
+        if (rawValue == null) {
+            return null;
+        }
+        return rawValue.toFixed(2) + "%";
+    }
+
+    const opts = {
+        id: "chart",
+        //title: "Progress",
+        width: 700,
+        height: height,
+        scales: {
+            x: {
+                time: true,
+            },
+        },
+        series: [
+            {},
+            {
+                label: "Code",
+                width: 2,
+                stroke: "rgb(240, 141, 70)",
+                value: percentValue,
+            },
+            {
+                label: "Data",
+                width: 2,
+                stroke: "#5c9bfe",
+                value: percentValue,
+            }
+        ],
+        axes: [
+            {
+                stroke,
+                grid,
+            },
+            {
+                stroke,
+                grid,
+                values: (self, ticks) => ticks.map(rawValue => rawValue.toFixed(0) + "%"),
+            },
+        ],
+    };
+
+    const u = new uPlot(opts, null, document.getElementById('chartContainer'));
+
+    fetch('https://progress.decomp.club/data/rb3/SZBE69_B8/dol/?mode=all')
+        .then(v => v.json())
+        .then(result => {
+            const entries = result['rb3']['SZBE69_B8']['dol'].reverse();
+            u.setData([
+                entries.map(a => a.timestamp),
+                entries.map(a => 100 * (a.measures['code'] / a.measures['code/total'])),
+                entries.map(a => 100 * (a.measures['data'] / a.measures['data/total'])),
+            ]);
+        });
 </script>
-<hr>
-<h3>What people are saying:</h3>
-<p><b>"I straight up did not like RB3 before this mod, I only played it if I was forced to."</b><br>&mdash; <a href="https://www.youtube.com/@acai28">Acai</a> <small><a href="/images/seeth/acai.webp">[source]</a></small></p>
-<p><b>"This is a dream."</b><br>&mdash; <a href="https://www.youtube.com/@JasonParadise">JasonParadise</a> <small><a href="https://clips.twitch.tv/CleverFairWallabyPermaSmug-mwZh_5qahPB_WGGf">[source]</a></small></p>
-<p><b>"Got 2 friends totally gone from rhythm games into RB3DX, this shit's fire man."</b><br>&mdash; <a href="https://www.youtube.com/@DarkaiVT">DarkaiVT</a> <small><a href="https://x.com/DarklyPlaysSpam/status/1699455726325010908">[source]</a></small></p>
-<p><b>"Genuinely game changing."</b><br>&mdash; <a href="https://www.youtube.com/@BirdmanExe">BirdmanExe</a> <small><a href="/images/seeth/birdman.webp">[source]</a></small></p>
-<p><b>"W"</b><br>&mdash; <a href="https://www.youtube.com/@eliteasian1234">EliteAsian123</a> <small><a href="/images/seeth/eliteasian.webp">[source]</a></small></p>
-<p><b>"I like that, I like that a lot."</b><br>&mdash; <a href="https://twitch.tv/midpinch">Midpinch</a></p>
+
+<h1>What is this?</h1>
+
+<p>
+    This is a reverse engineering project aimed at producing a <b>functionally equivalent</b> decompilation of <i>Dance Central 3</i>. This process involves writing C++ code that when compiled, produces similar code that is in the final release of the game.
+</p>
+
+<p>
+    The end result of all of this will be a fully editable version of the game's code in human-readable C++. This will allow for modifications to be made beyond what we can already do in <i>Dance Central 3 Deluxe</i>.
+</p>
+
+<h1>How can I contribute?</h1>
+<p>
+    You may contribute <a href="https://github.com/darkrta/rb3">here</a>. We are always looking for more contributors to push the project forward.
+</p>
+
+<h1>What about a port?</h1>
+<p>
+    Let's preface this by saying that decompilation projects are <i>NOT</i> ports. With that being said, this is a very rare case where the people working on the decompilation project are also those interested in porting the codebase to more platforms.
+</p>
+<p>
+    Keep in mind this process takes an extremely long time, and we will not be making any attempt at a port until the game is fully decompiled. If you really want a port to be made faster and you have the technical know-how (or are willing to learn), you should consider contributing to the project.
+</p>
+
+<h1>Will you be able to do [modification] with this?</h1>
+<p>
+    Theoretically yes, but such modifications are completely outside of the scope of this project. This project only concerns itself with producing readable C++ code that can be used to create said modifications.
+</p>
+
+<h1 style="text-align: center">Progress</h1>
+
+
+
+<p style="text-align: center;">
+    For a more detailed view of the decompilation's progress visit <a href="https://decomp.dev/DarkRTA/rb3">this site</a>.
+</p>
