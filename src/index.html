@@ -62,14 +62,14 @@ lang: en
 
     const u = new uPlot(opts, null, document.getElementById('chartContainer'));
 
-    fetch('https://progress.decomp.club/data/rb3/SZBE69_B8/dol/?mode=all')
+    fetch('https://decomp.dev/rjkiv/dc3-decomp/373307D9.json?mode=history')
         .then(v => v.json())
-        .then(result => {
-            const entries = result['rb3']['SZBE69_B8']['dol'].reverse();
+        .then(entries => {
+            entries.reverse();
             u.setData([
-                entries.map(a => a.timestamp),
-                entries.map(a => 100 * (a.measures['code'] / a.measures['code/total'])),
-                entries.map(a => 100 * (a.measures['data'] / a.measures['data/total'])),
+                entries.map(a => new Date(a.timestamp).getTime() / 1000),
+                entries.map(a => a.measures.matched_code_percent),
+                entries.map(a => a.measures.matched_data_percent),
             ]);
         });
 </script>

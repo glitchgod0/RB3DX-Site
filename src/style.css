@@ -131,3 +131,12 @@ small {
 #logo {
   width: 40%;
 }
+
+#chartContainer {
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 0px 23px 3px rgba(0, 0, 0, 0.77);
+    -webkit-box-shadow:0px 0px 23px 3px rgba(0,0,0,0.77);
+    -moz-box-shadow: 0px 0px 23px 3px rgba(0,0,0,0.77);
+    background: rgba(0, 0, 0, 0.7);
+}
