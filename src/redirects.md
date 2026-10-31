@@ -6,7 +6,7 @@ pagination:
 redirects:
   - {"from": "/about.html", "to": "/about/"}
   - {"from": "/bugreports.html", "to": "/bugreports/"}
-  - {"from": "/decomp.html", "to": "/decomp/"}
+  - {"from": "/decomp.html", "to": "/"}
   - {"from": "/downloads.html", "to": "/downloads/"}
   - {"from": "/features.html", "to": "/features/"}
   - {"from": "/install.html", "to": "/install/"}

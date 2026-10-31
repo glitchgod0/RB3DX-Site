@@ -37,13 +37,19 @@ lang: en
             {
                 label: "Code",
                 width: 2,
-                stroke: "rgb(240, 141, 70)",
+                stroke: "#A017B4",
                 value: percentValue,
             },
             {
                 label: "Data",
                 width: 2,
-                stroke: "#5c9bfe",
+                stroke: "#FCF73B",
+                value: percentValue,
+            },
+            {
+                label: "Fuzzy Match",
+                width: 2,
+                stroke: "#08A7FB",
                 value: percentValue,
             }
         ],
@@ -70,6 +76,7 @@ lang: en
                 entries.map(a => new Date(a.timestamp).getTime() / 1000),
                 entries.map(a => a.measures.matched_code_percent),
                 entries.map(a => a.measures.matched_data_percent),
+                entries.map(a => a.measures.fuzzy_match_percent),
             ]);
         });
 </script>
@@ -86,7 +93,7 @@ lang: en
 
 <h1>How can I contribute?</h1>
 <p>
-    You may contribute <a href="https://github.com/darkrta/rb3">here</a>. We are always looking for more contributors to push the project forward.
+    You may contribute <a href="https://https://github.com/rjkiv/dc3-decomp">here</a>. We are always looking for more contributors to push the project forward.
 </p>
 
 <h1>What about a port?</h1>
@@ -107,5 +114,5 @@ lang: en
 
 
 <p style="text-align: center;">
-    For a more detailed view of the decompilation's progress visit <a href="https://decomp.dev/DarkRTA/rb3">this site</a>.
+    For a more detailed view of the decompilation's progress visit <a href="https://decomp.dev/rjkiv/dc3-decomp">this site</a>.
 </p>
